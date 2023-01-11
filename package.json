@@ -1,0 +1,30 @@
+{
+  "name": "team-manager-parakeet",
+  "version": "1.0.0",
+  "description": "organizes teams in a workplace using identifying criteria",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loudwhisperer/team-manager-parakeet.git"
+  },
+  "keywords": [
+    "sql",
+    "js",
+    "node",
+    "inquirer"
+  ],
+  "author": "Brendan Borowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loudwhisperer/team-manager-parakeet/issues"
+  },
+  "homepage": "https://github.com/loudwhisperer/team-manager-parakeet#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3"
+  }
+}
