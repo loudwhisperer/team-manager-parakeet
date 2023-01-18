@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const ctable = require("console.table");
-const {departmentsQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmpQuery} = require("./db/query.js")
+const {departmentsQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmpQuery, updateEmpQuery} = require("./db/query.js")
 
 
 const starter = [
@@ -43,6 +43,9 @@ const menu = async () => {
         break;
       case "AddaEmployee":
         addEmployee();
+        break;
+      case "UpdateanEmployeeRole":
+        updateEmployee();
         break;
       default:
         break;
@@ -138,5 +141,52 @@ const addEmployee = async () => {
     console.log('You added a new employee!')
     menu()
 }
-
+    const updateEmployee = async () => {
+      const [rolesDb] = await rolesQuery();
+      const [employeesDb] = await employeesQuery();
+      const roles = rolesDb.map((role) => ({
+        name: role.title,
+        value: role.id,
+      }));
+      const employees = employeesDb.map((employee) => ({
+        name: employee.last_name,
+        value: employee.id, name:employee.first_name, value:employee.id
+      }));
+      const empChoice = await inquirer.prompt([
+        {
+          type: "list",
+          name: "employee.id",
+          message: "Which employee would you like to update?",
+          choices: employees,
+        }
+      ])
+      const employeeData = await inquirer.prompt([
+        {
+          type: "input",
+          name: "first_name",
+          message: "What is the Employees First Name?",
+        },
+        {
+          type: "input",
+          name: "last_name",
+          message: "What is the Employees Last Name?",
+        },
+        {
+          type: "list",
+          name: "role_id",
+          message: "What Role does this employee have?",
+          choices: roles,
+        },
+        {
+          type: "list",
+          name: "manager_id",
+          message: "Who is this employee's manager?",
+          choices: employees,
+        },
+      ]);
+      const da = await updateEmpQuery(empChoice);
+      const db = await updateEmpQuery(employeeData);
+      console.log("You updated an employee!");
+      menu();
+    };
 menu()
