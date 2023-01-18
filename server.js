@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const ctable = require("console.table");
-const {departmentsQuery, rolesQuery, employeesQuery, addEmpQuery} = require("./db/query.js")
+const {departmentsQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmpQuery} = require("./db/query.js")
 
 
 const starter = [
@@ -23,19 +23,29 @@ const starter = [
 const menu = async () => {
     const {starterList} = await inquirer.prompt(starter)
     switch (starterList) {
-        case 'ViewallDepartments':
-            //run view all department function  
-            viewAllDepartments();
-            break;
-        case 'ViewallRoles':
-            //run view all roles function  
-            viewAllRoles()
-            break;
-        case 'AddaEmployee':
-            addEmployee()
-            break;
-        default:
-            break;
+      case "ViewallDepartments":
+        //run view all department function
+        viewAllDepartments();
+        break;
+      case "ViewallRoles":
+        //run view all roles function
+        viewAllRoles();
+        break;
+      case "ViewallEmployees":
+        //run view all employees function
+        viewallEmployees();
+        break;
+      case "AddaDepartment":
+        addDepartment();
+        break;
+      case "AddaRole":
+        addRole();
+        break;
+      case "AddaEmployee":
+        addEmployee();
+        break;
+      default:
+        break;
     }
 }
 
@@ -50,6 +60,55 @@ const viewAllRoles = async () => {
   console.table(results);
   menu();
 };
+
+const viewallEmployees = async () => {
+    const [results] = await employeesQuery();
+    console.table(results);
+    menu();
+}
+
+const addDepartment = async () => {
+    const [departmentDb] = await departmentsQuery();
+    const departments = departmentDb.map(department => ({name:department.name, value:department.id}))
+    const departmentData = await inquirer.prompt([
+        {
+            type:'input',
+            name:'name',
+            message:'What is the new department you would like to add?',
+        }
+    ])
+    const db = await addDepartmentQuery(departmentData);
+    console.log("You added a new department!");
+    menu();
+}
+
+const addRole = async () => {
+    const [departmentDb] = await departmentsQuery();
+    const [rolesDb] = await rolesQuery();
+    const departments = departmentDb.map(department => ({name:department.name, value:department.id}))
+    //const roles = rolesDb.map(role => ({name:role.title, value:role.id}))
+    const roleData = await inquirer.prompt([
+      {
+        type: "input",
+        name: "title",
+        message: "What is the title of this Role?",
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for this Role?",
+      },
+      {
+        type: "list",
+        name: "department_id",
+        message: "What is the department does the person with this role work in?",
+        choices: departments,
+      },
+    ]);
+      const db = await addRoleQuery(roleData);
+      console.log("You added a new role!");
+      menu();
+}
 
 const addEmployee = async () => {
     const [rolesDb] = await rolesQuery();
