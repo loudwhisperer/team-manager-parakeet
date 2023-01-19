@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const ctable = require("console.table");
-const {departmentsQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmpQuery, updateEmpQuery} = require("./db/query.js")
+const {departmentsQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmpQuery, updateRoleQuery, updateManagerQuery} = require("./db/query.js")
 
 
 const starter = [
@@ -184,8 +184,10 @@ const addEmployee = async () => {
           choices: employees,
         },
       ]);
-      const da = await updateEmpQuery(empChoice);
-      const db = await updateEmpQuery(employeeData);
+      const da = await updateRoleQuery(empChoice);
+      const dc = await updateManagerQuery(empChoice);
+      const db = await updateRoleQuery(employeeData);
+      const dd = await updateManagerQuery(employeeData);
       console.log("You updated an employee!");
       menu();
     };

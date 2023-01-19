@@ -32,13 +32,14 @@ module.exports = {
   addEmpQuery(data) {
     return db.promise().query("INSERT INTO employee SET ? ", data);
   },
-  updateEmpQuery()
+  updateRoleQuery(employeeId, roleId)
   {
     return db
       .promise()
       .query(
-        "UPDATE employee SET employee.id = id WHERE employee.id = id",
-        "UPDATE employee SET employee.first_name = first WHERE employee.first_name = first"
-      );
+        "UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
   },
+  updateManagerQuery(employeeId, managerId){
+    return this.connection.promise().query('UPDATE employee SET manager_id = ? WHERE id = ?', [managerId, employeeId])
+  }
 };
