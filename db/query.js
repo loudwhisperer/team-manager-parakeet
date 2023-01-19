@@ -40,6 +40,6 @@ module.exports = {
         "UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
   },
   updateManagerQuery(employeeId, managerId){
-    return this.connection.promise().query('UPDATE employee SET manager_id = ? WHERE id = ?', [managerId, employeeId])
+    return db.promise().query('UPDATE employee SET manager_id = ? WHERE id = ?', [managerId, employeeId])
   }
 };
