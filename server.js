@@ -141,14 +141,11 @@ const addEmployee = async () => {
   const [rolesDb] = await rolesQuery();
   const [employeesDb] = await employeesQuery();
   const roles = rolesDb.map((role) => ({ name: role.title, value: role.id }));
-  // const employees = employeesDb.map((employee) => ({
-  //   name:  employee.last_name,
-  //   value: employee.id,
-  // }));
-  const managerChoices = employeesDb.map(({ id, first_name, last_name }) => ({
-    name: `${first_name} ${last_name}`,
-    value: id,
+  const employees = employeesDb.map((employee) => ({
+   name: `${employee.first_name} ${employee.last_name}`,
+    value: employee.id,
   }));
+ 
   const employeeData = await inquirer.prompt([
     {
       type: "input",
@@ -168,9 +165,9 @@ const addEmployee = async () => {
     },
     {
       type: "list",
-      name: "employee.id",
+      name: "manager_id",
       message: "Who is the Manager of this employee?",
-      choices: managerChoices,
+      choices: employees,
     },
   ]);
   const db = await addEmpQuery(employeeData);
