@@ -162,7 +162,7 @@ const addEmployee = async () => {
       message: "What Role does this employee have?",
       choices: roles,
     },
-    //TODO: ASK ABOUT ADDING MANGER ID
+    
   ]);
   const db = await addEmpQuery(employeeData);
   console.log("You added a new employee!");
