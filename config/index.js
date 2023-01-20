@@ -1,7 +1,7 @@
-const db = require("../config/connection.js");
+const db = require("../config");
 // queries that link to functions in in server js to return db info, add db info and update db info
 module.exports = {
-    //returns all departments from db
+  //returns all departments from db
   departmentsQuery() {
     return db.promise().query("SELECT * FROM department");
   },
@@ -28,24 +28,30 @@ module.exports = {
   addDepartmentQuery(data) {
     return db.promise().query("INSERT INTO department SET ? ", data);
   },
-//adds roles to db
+  //adds roles to db
   addRoleQuery(data) {
     return db.promise().query("INSERT INTO role SET ? ", data);
   },
-//adds employees to db
+  //adds employees to db
   addEmpQuery(data) {
     return db.promise().query("INSERT INTO employee SET ? ", data);
   },
   //updates the role of an employee
-  updateRoleQuery(employeeId, roleId)
-  {
+  updateRoleQuery(employeeId, roleId) {
     return db
       .promise()
-      .query(
-        "UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
+      .query("UPDATE employee SET role_id = ? WHERE id = ?", [
+        roleId,
+        employeeId,
+      ]);
   },
   //updates the manager of a db
-  updateManagerQuery(employeeId, managerId){
-    return db.promise().query('UPDATE employee SET manager_id = ? WHERE id = ?', [managerId, employeeId])
-  }
+  updateManagerQuery(employeeId, managerId) {
+    return db
+      .promise()
+      .query("UPDATE employee SET manager_id = ? WHERE id = ?", [
+        managerId,
+        employeeId,
+      ]);
+  },
 };

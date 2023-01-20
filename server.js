@@ -10,7 +10,7 @@ const {
   addEmpQuery,
   updateRoleQuery,
   updateManagerQuery,
-} = require("./db/query.js");
+} = require("./config/index.js");
 // shows the starting menu to the user
 const starter = [
   {
