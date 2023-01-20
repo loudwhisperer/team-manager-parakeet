@@ -1,4 +1,4 @@
-const db = require("../config");
+const db = require("./connection");
 // queries that link to functions in in server js to return db info, add db info and update db info
 module.exports = {
   //returns all departments from db

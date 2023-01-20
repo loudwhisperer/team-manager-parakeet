@@ -141,9 +141,13 @@ const addEmployee = async () => {
   const [rolesDb] = await rolesQuery();
   const [employeesDb] = await employeesQuery();
   const roles = rolesDb.map((role) => ({ name: role.title, value: role.id }));
-  const employees = employeesDb.map((employee) => ({
-    name: employee.last_name,
-    value: employee.id,
+  // const employees = employeesDb.map((employee) => ({
+  //   name:  employee.last_name,
+  //   value: employee.id,
+  // }));
+  const managerChoices = employeesDb.map(({ id, first_name, last_name }) => ({
+    name: `${first_name} ${last_name}`,
+    value: id,
   }));
   const employeeData = await inquirer.prompt([
     {
@@ -162,7 +166,12 @@ const addEmployee = async () => {
       message: "What Role does this employee have?",
       choices: roles,
     },
-    
+    {
+      type: "list",
+      name: "employee.id",
+      message: "Who is the Manager of this employee?",
+      choices: managerChoices,
+    },
   ]);
   const db = await addEmpQuery(employeeData);
   console.log("You added a new employee!");
