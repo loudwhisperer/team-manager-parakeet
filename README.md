@@ -14,6 +14,12 @@ The lesson here that really stuck with me was that traversing sql databases can 
 
 ## Usage
 
+As seen in the video below a user just has to run mysql, then run the schema.sql, seeds.sql and run node server in the terminal.
+
+After this they will be able to functionally view all departments, roles and employees, add any of the three and update the manager and role of any employee using the application.
+
+[![Watch the video](./assets/employee.png)](https://drive.google.com/file/d/1DYxfje6TeeZzOhwy2Q7g7kW-QWw-srbj/view)
+
 ## License
 
 MIT License
