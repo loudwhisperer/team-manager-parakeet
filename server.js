@@ -1,3 +1,4 @@
+//plug ins to show info from db in cleaned up tables, allow use of inquirer, brings in functions from query.js
 const inquirer = require("inquirer");
 const ctable = require("console.table");
 const {
@@ -10,7 +11,7 @@ const {
   updateRoleQuery,
   updateManagerQuery,
 } = require("./db/query.js");
-
+// shows the starting menu to the user
 const starter = [
   {
     type: "list",
@@ -28,7 +29,7 @@ const starter = [
     ],
   },
 ];
-
+// makes the menu actually show at start then after each interaction with the db
 const menu = async () => {
   const { starterList } = await inquirer.prompt(starter);
   switch (starterList) {
@@ -45,20 +46,25 @@ const menu = async () => {
       viewallEmployees();
       break;
     case "AddaDepartment":
+      //run add department function
       addDepartment();
       break;
     case "AddaRole":
+      //run add role function
       addRole();
       break;
     case "AddaEmployee":
+      //run add employee function
       addEmployee();
       break;
     case "UpdateanEmployeeRole":
+        // run update an employees role function
       updateEmployeeRole();
       break;
     case "UpdateanEmployeeManager":
-        updateEmployeeManager()
-        break;
+        // run update an employees manager function
+      updateEmployeeManager();
+      break;
     default:
       break;
   }
@@ -162,56 +168,6 @@ const addEmployee = async () => {
   console.log("You added a new employee!");
   menu();
 };
-// const updateEmployee = async () => {
-//   const [rolesDb] = await rolesQuery();
-//   const [employeesDb] = await employeesQuery();
-//   const roles = rolesDb.map((role) => ({
-//     name: role.title,
-//     value: role.id,
-//   }));
-//   const employees = employeesDb.map((employee) => ({
-//     name: employee.last_name,
-//     value: employee.id, name:employee.first_name, value:employee.id
-//   }));
-//   const empChoice = await inquirer.prompt([
-//     {
-//       type: "list",
-//       name: "employee.id",
-//       message: "Which employee would you like to update?",
-//       choices: employees,
-//     }
-//   ])
-//   const employeeData = await inquirer.prompt([
-//     {
-//       type: "input",
-//       name: "first_name",
-//       message: "What is the Employees First Name?",
-//     },
-//     {
-//       type: "input",
-//       name: "last_name",
-//       message: "What is the Employees Last Name?",
-//     },
-//     {
-//       type: "list",
-//       name: "role_id",
-//       message: "What Role does this employee have?",
-//       choices: roles,
-//     },
-//     {
-//       type: "list",
-//       name: "manager_id",
-//       message: "Who is this employee's manager?",
-//       choices: employees,
-//     },
-//   ]);
-//   //const da = await updateRoleQuery(empChoice);
-//   //const dc = await updateManagerQuery(empChoice);
-//   const db = await updateRoleQuery(employeeData, empChoice);
-//   //const dd = await updateManagerQuery(employeeData);
-//   console.log("You updated an employee!");
-//   menu();
-// };
 
 function updateEmployeeRole() {
   employeesQuery().then(([rows]) => {
@@ -294,4 +250,5 @@ function updateEmployeeRole() {
             })
         })
 }
+//runs starter menu function at start
 menu();

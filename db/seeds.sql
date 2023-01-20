@@ -1,3 +1,4 @@
+-- seed database with information
 INSERT INTO department (name)
 
 VALUES

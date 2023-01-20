@@ -1,3 +1,4 @@
+-- Create database and according tables
 DROP DATABASE IF EXISTS organizer_db;
 CREATE DATABASE organizer_db;
 USE organizer_db;
